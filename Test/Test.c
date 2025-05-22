@@ -17,6 +17,36 @@ int main() {
 }
 
 void Test_Queue(void) {
+    Queue_t queue = Queue_Create();
+    assert(queue != NULL);
+    assert(Queue_Is_Empty(queue));
+
+    char input[32];
+    for(int i = 0; i < 100; i++) {
+        size_t queue_length = Queue_Get_Length(queue);
+        assert(queue_length == i);
+        size_t input_length = (size_t)sprintf(input, "input: %d\r\n", i);
+        Queue_Result_t push_result =
+            Queue_Push(queue, (void *)input, input_length + 1);
+        assert(push_result == eQUEUE_RESULT_OK);
+        queue_length = Queue_Get_Length(queue);
+        assert(queue_length == i + 1);
+    }
+
+    char output[32];
+    char test_str[32];
+    for(int i = 0; i < 100; i++) {
+        size_t queue_length = Queue_Get_Length(queue);
+        assert(queue_length == 100 - i);
+        size_t test_str_length = (size_t)sprintf(test_str, "input: %d\r\n", i);
+        size_t output_length = Queue_Pop(queue, (void *)output);
+        assert(output_length == test_str_length + 1);
+        assert(strcmp(output, test_str) == 0);
+        queue_length = Queue_Get_Length(queue);
+        assert(queue_length == 100 - i - 1);
+    }
+
+    assert(Queue_Is_Empty(queue));
 }
 
 void Test_Circular_Buffer(void) {

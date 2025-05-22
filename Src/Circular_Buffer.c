@@ -52,7 +52,7 @@ Circular_Buffer_Result_t Circular_Buffer_Push(Circular_Buffer_t cbuffer,
         cbuffer->Head = cbuffer->Buffer_Start;
     }
 
-    cbuffer->Current_Length += 1;
+    cbuffer->Current_Length++;
 
     return eCIRCULAR_BUFFER_RESULT_OK;
 }
@@ -72,7 +72,7 @@ Circular_Buffer_Result_t Circular_Buffer_Pop(Circular_Buffer_t cbuffer,
         cbuffer->Tail = cbuffer->Buffer_Start;
     }
 
-    cbuffer->Current_Length -= 1;
+    cbuffer->Current_Length--;
 
     return eCIRCULAR_BUFFER_RESULT_OK;
 }
