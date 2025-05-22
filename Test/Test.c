@@ -5,13 +5,16 @@
 #include <stdio.h>
 #include "../Inc/Queue.h"
 #include "../Inc/Circular_Buffer.h"
+#include "../Inc/Arena.h"
 
 void Test_Queue(void);
 void Test_Circular_Buffer(void);
+void Test_Arena(void);
 
 int main() {
     Test_Queue();
     Test_Circular_Buffer();
+    Test_Arena();
 
     return 0;
 }
@@ -79,4 +82,29 @@ void Test_Circular_Buffer(void) {
     assert(
         Circular_Buffer_Pop(cbuffer, &output_byte) ==
         eCIRCULAR_BUFFER_RESULT_ERROR);
+
+    for(int i = 0; i < 100; i++) {
+        size_t current_length = Circular_Buffer_Get_Length(cbuffer);
+        assert(current_length == i);
+        Circular_Buffer_Result_t push_result =
+            Circular_Buffer_Push(cbuffer, (uint8_t)i);
+        assert(push_result == eCIRCULAR_BUFFER_RESULT_OK);
+        current_length = Circular_Buffer_Get_Length(cbuffer);
+        assert(current_length == i + 1);
+    }
+}
+
+void Test_Arena(void) {
+    Arena_t arena = Arena_Create(1024);
+    char *buffer_one = (char *)Arena_Alloc(arena, 64);
+    strcpy(buffer_one, "one");
+    assert(strcmp(buffer_one, "one") == 0);
+    char *buffer_two = (char *)Arena_Alloc(arena, 950);
+    strcpy(buffer_two, "two");
+    assert(strcmp(buffer_two, "two") == 0);
+    char *buffer_three = (char *)Arena_Alloc(arena, 128);
+    strcpy(buffer_three, "three");
+    assert(strcmp(buffer_three, "three") == 0);
+    assert(strcmp(buffer_one, "one") == 0);
+    assert(strcmp(buffer_two, "two") == 0);
 }
