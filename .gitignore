@@ -1,4 +1,3 @@
 Build/
 a.out
 Test/Usb_To_Uart.c
-CMakeLists.txt
