@@ -81,3 +81,11 @@ size_t Circular_Buffer_Get_Length(Circular_Buffer_t cbuffer) {
     return cbuffer->Current_Length;
 }
 
+bool Circular_Buffer_Is_Empty(Circular_Buffer_t cbuffer) {
+    return cbuffer->Current_Length == 0;
+}
+
+bool Circular_Buffer_Is_Full(Circular_Buffer_t cbuffer) {
+    return cbuffer->Current_Length == cbuffer->Max_Length;
+}
+

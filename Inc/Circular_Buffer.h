@@ -17,7 +17,8 @@ Circular_Buffer_Result_t Circular_Buffer_Push(Circular_Buffer_t cbuffer,
 Circular_Buffer_Result_t Circular_Buffer_Pop(Circular_Buffer_t cbuffer,
                                              uint8_t *output_byte);
 size_t Circular_Buffer_Get_Length(Circular_Buffer_t cbuffer);
- 
+bool Circular_Buffer_Is_Empty(Circular_Buffer_t cbuffer);
+bool Circular_Buffer_Is_Full(Circular_Buffer_t cbuffer);
  
 
 #endif /* BRITNEYA_UTILS_CIRCULAR_BUFFER_H_ */

@@ -64,7 +64,7 @@ void Test_Circular_Buffer(void) {
         assert(push_result == eCIRCULAR_BUFFER_RESULT_OK);
         current_length = Circular_Buffer_Get_Length(cbuffer);
         assert(current_length == i + 1);
-    }
+    } 
 
     assert(Circular_Buffer_Push(cbuffer, 0) == eCIRCULAR_BUFFER_RESULT_ERROR);
 
